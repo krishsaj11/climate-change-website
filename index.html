@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WildScape</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+<h1>WildScape</h1>
+<h2>Understanding Our Changing Planet</h2>
+<div class="section">
+<img src="images/earth.png">
+<h3>WHAT IS CLIMATE CHANGE?</h3>
+<P>Climate change refers to long-term changes in the Earth's temperature and weather patterns. These changes can happen naturally, but human activities such as burning fossil fuels and deforestation have greatly increased the rate of climate change. It can affect ecosystems, wildlife, sea levels, and the lives of people around the world.
+</P>
+</div>
+<div class="section"><h3>WHAT ARE THE CAUSES OF CLIMATE CHANGE?</h3>
+<h4>1. Burning Fossil Fuels</h4>
+<p>Coal, oil, and natural gas are burned for electricity, transportation, and industry. This releases greenhouse gases such as carbon dioxide.
+</p>
+<h4>2. Deforestation</h4>
+<p>Trees absorb carbon dioxide from the atmosphere. When forests are cut down, less carbon dioxide is removed from the air, and some of the stored carbon is released.</p>
+    <h4>3. Agriculture and Livestock</h4>
+    <p>Farming and livestock can produce greenhouse gases such as methane and nitrous oxide, which contribute to global warming.</p></div>
+<div class="section"><h3>EFFECTS OF CLIMATE CHANGE</h3>
+<h4>1. Rising Temperatures</h4>
+<p>Climate change is causing Earth's average temperature to rise. Higher temperatures can lead to more frequent and intense heatwaves.</p>
+<h4>2. Melting Ice and Rising Sea Levels</h4>
+<p>Higher temperatures cause glaciers and ice sheets to melt. This contributes to rising sea levels, which can threaten coastal communities and ecosystems.</p>
+<h4>3. Extreme Weather</h4>
+<p>Climate change can influence weather patterns and increase the risk or intensity of events such as heatwaves, heavy rainfall, droughts, and some storms.</p>
+</div>
+<div class="section"><h2>INTERACTIVE SIMULATOR</h2>
+<p>Change different factors and see what happens to the ecosystem</p>
+
+<div>
+<label for="forest">Forest Cover</label>
+<input type="range" min="0" max="100" id="forest">
+<span id="forest-value">50%</span>
+</div>
+
+<div>
+<label for="deforestation">Deforestation</label>
+<input type="range" min="0" max="100" id="deforestation">
+<span id="deforestation-value">50%</span>
+</div>
+
+<div>
+<label for="forest_fires">Forest Fires</label>
+<input type="range" min="0" max="100" id="forest_fires">
+<span id="forest-fires-value">50%</span>
+</div>
+
+<div>
+<label for="human_development">Human Development</label>
+<input type="range" min="0" max="100" id="human_development">
+<span id="human-development-value">50%</span>
+</div>
+
+<div>
+<label for="wildlife_protection">Wildlife Protection</label>
+<input type="range" min="0" max="100" id="wildlife_protection">
+<span id="wildlife-protection-value">50%</span>
+
+<h3>Ecosystem Health</h3>
+<p id="ecosystem-score">50%</p>
+<p id="ecosystem-status">Moderate</p>
+<div id="ecosystem-display">
+
+    <div id="sky">
+        ☀️
+    </div>
+
+    <div id="forest-scene">
+        🌳 🌳 🌳 🌳 🌳
+    </div>
+    
+    <div id="development">
+    🏠 🏠
+    </div>
+
+    <div id="animals">
+        🦋 🐦 🦌 🐿️ 🐝
+    </div>
+
+    <div id="ground">
+        🌿 🌱 🌼 🌿 🌱
+    </div>
+
+</div>
+
+<div id="ecosystem-result"></div>
+
+</div></div>
+</body>
+</html>
+<script>
+const forest = document.getElementById("forest");
+const forestValue = document.getElementById("forest-value");
+forest.addEventListener("input", function() {
+    forestValue.textContent = forest.value + "%";
+});
+const deforestation = document.getElementById("deforestation");
+const deforestationValue = document.getElementById("deforestation-value");
+deforestation.addEventListener("input", function() {
+    deforestationValue.textContent = deforestation.value + "%";
+});
+
+
+const forestFires = document.getElementById("forest_fires");
+const forestFiresValue = document.getElementById("forest-fires-value");
+forestFires.addEventListener("input", function() {
+    forestFiresValue.textContent = forestFires.value + "%";
+});
+
+const humanDevelopment = document.getElementById("human_development");
+const humanDevelopmentValue = document.getElementById("human-development-value");
+humanDevelopment.addEventListener("input", function() {
+    humanDevelopmentValue.textContent = humanDevelopment.value + "%";
+});
+
+
+const wildlifeProtection = document.getElementById("wildlife_protection");
+const wildlifeProtectionValue = document.getElementById("wildlife-protection-value");
+wildlifeProtection.addEventListener("input", function() {
+    wildlifeProtectionValue.textContent = wildlifeProtection.value + "%";
+});
+
+function updateScore() {
+    const score =
+        (Number(forest.value) +
+        Number(wildlifeProtection.value) +
+        (100 - Number(deforestation.value)) +
+        (100 - Number(forestFires.value)) +
+        (100 - Number(humanDevelopment.value))) / 5;
+
+    document.getElementById("ecosystem-score").textContent =
+        Math.round(score) + "%";
+        const status = document.getElementById("ecosystem-status");
+
+if (score >= 70) {
+    status.textContent = "Healthy";
+} else if (score >= 40) {
+    status.textContent = "Moderate";
+} else {
+    status.textContent = "At Risk";
+}
+const result = document.getElementById("ecosystem-result");
+
+if (score >= 70) {
+    result.textContent = "The ecosystem is doing well!";
+} else if (score >= 40) {
+    result.textContent = "The ecosystem is under some pressure.";
+} else {
+    result.textContent = "The ecosystem is at high risk.";
+}
+const forestDisplay = document.getElementById("forest-scene");
+
+const forestAmount = Number(forest.value);
+const deforestationAmount = Number(deforestation.value);
+const fireAmount = Number(forestFires.value);
+
+if (fireAmount >= 70) {
+    forestDisplay.textContent = "🔥 🌲 🔥 🪵 🔥";
+} else if (deforestationAmount >= 70) {
+    forestDisplay.textContent = "🌲 🪵 🪵 🌲";
+} else if (forestAmount >= 70) {
+    forestDisplay.textContent = "🌳 🌳 🌳 🌳 🌳";
+} else if (forestAmount >= 40) {
+    forestDisplay.textContent = "🌳 🌳 🌲 🌳";
+} else {
+    forestDisplay.textContent = "🌲 🪵 🪵";
+}
+const animalsDisplay = document.getElementById("animals");
+
+const wildlifeAmount = Number(wildlifeProtection.value);
+
+if (wildlifeAmount >= 70 && score >= 70) {
+    animalsDisplay.textContent = "🦋 🐦 🦌 🐿️ 🐝";
+} else if (wildlifeAmount >= 40 && score >= 40) {
+    animalsDisplay.textContent = "🦋 🐦 🐿️";
+} else {
+    animalsDisplay.textContent = "🐦";
+}
+const groundDisplay = document.getElementById("ground");
+
+if (score >= 70) {
+    groundDisplay.textContent = "🌿 🌱 🌼 🌿 🌱 🌼";
+} else if (score >= 40) {
+    groundDisplay.textContent = "🌿 🌱 🌿 🪨";
+} else {
+    groundDisplay.textContent = "🪨 🪵 🪨";
+}
+const developmentDisplay = document.getElementById("development");
+
+const developmentAmount = Number(humanDevelopment.value);
+
+if (developmentAmount >= 70) {
+    developmentDisplay.textContent = "🏙️ 🏢 🏭 🏢";
+} else if (developmentAmount >= 40) {
+    developmentDisplay.textContent = "🏠 🏠 🏢";
+} else {
+    developmentDisplay.textContent = "🏠 🌳";
+}
+}
+
+forest.addEventListener("input", updateScore);
+deforestation.addEventListener("input", updateScore);
+forestFires.addEventListener("input", updateScore);
+humanDevelopment.addEventListener("input", updateScore);
+wildlifeProtection.addEventListener("input", updateScore);
+updateScore();
+
+
+</script>
